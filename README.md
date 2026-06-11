@@ -1,127 +1,93 @@
-\# Transcriptomics Analyse – Rheumatoïde Artritis (RA)
+Transcriptomics Analyse van Rheumatoïde Artritis (RA): Van Raw Reads tot Pathway‑Inzicht
+Dit project onderzoekt verschillen in genexpressie tussen vier reumapatiënten en vier gezonde controles met behulp van RNA‑sequencing. De volledige workflow — van raw FASTQ tot functionele interpretatie — is uitgevoerd in R en gedocumenteerd in deze repository.
 
+De analyse omvat:
 
+Mapping van reads op het humane referentiegenoom (GRCh38)
 
-Dit project onderzoekt verschillen in genexpressie tussen vier reumapatiënten en vier gezonde controles met behulp van RNA‑seq data. De volledige workflow omvat read‑mapping, tellen van genexpressie, differentiële expressieanalyse, GO‑verrijking en KEGG‑pathwayvisualisatie.
+Genereren van een count matrix met featureCounts
 
+Differentiële expressieanalyse met DESeq2
 
+GO‑verrijking met goseq
 
-\---
+KEGG‑pathwayvisualisatie met pathview
 
+Repository structuur
+Code
+/data        → FASTQ, BAM, GTF en referentiegenoom
+/scripts     → volledig R‑script (mapping → DE → GO → KEGG)
+/results     → DESeq2‑tabellen, GO‑resultaten, KEGG‑tabellen
+/figures     → volcano plot, GO‑plot, KEGG‑pathway
+/docs        → Inleiding, Methode, Resultaten, Conclusie
+/beheren     → Data Stewardship & GitHub beheer
+RESULTATEN
+Hieronder worden de belangrijkste resultaten van de analyse gepresenteerd, met verwijzingen naar de gegenereerde figuren en een korte toelichting per afbeelding.
 
+1. Volcano plot – differentiële genexpressie  
+![poep](results/Rplot_volcano plot.png)
 
-\## Repository structuur
+Uitleg:  
+Deze volcano plot toont de log2‑fold change (x‑as) tegenover de −log10(p‑waarde) (y‑as).
+Genen rechts zijn opgereguleerd in RA, genen links zijn neer‑gereguleerd.
+Hoe hoger een punt staat, hoe sterker de statistische significantie.
+De plot laat duidelijk zien dat meerdere ontstekingsgerelateerde genen sterk opgereguleerd zijn.
 
+2. GO‑analyse – Top 10 verrijkte biologische processen
+Bestand:  
+figures/GO_top10.png
 
+Uitleg:  
+Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process).
+De grootte van de bol geeft het aantal betrokken genen weer; de kleur geeft de p‑waarde aan.
+Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt, wat past bij de pathofysiologie van RA.
 
-\- \*\*/data\*\* – FASTQ, BAM, GTF en referentiegenoom
+3. KEGG‑pathway – hsa05323 (Rheumatoid arthritis)
+Bestanden:  
+figures/hsa05323.pathview.png  
+figures/hsa05323.png
 
-\- \*\*/scripts\*\* – volledig R‑script van mapping tot KEGG
-
-\- \*\*/results\*\* – DESeq2‑tabellen, GO‑resultaten
-
-\- \*\*/figures\*\* – volcano plot, GO‑plot, KEGG‑pathway
-
-\- \*\*/docs\*\* – Inleiding, Methode, Resultaten, Conclusie
-
-\- \*\*/beheren\*\* – Data Stewardship \& GitHub beheer
-
-
-
-\---
-
-
-
-\## Analyse workflow
-
-
-
-1\. Mapping met \*\*Rsubread\*\*
-
-2\. Tellen van reads met \*\*featureCounts\*\*
-
-3\. Differentiële expressie met \*\*DESeq2\*\*
-
-4\. GO‑analyse met \*\*goseq\*\*
-
-5\. KEGG‑visualisatie met \*\*pathview\*\*
-
-
-
-\---
-
-
-
-\## Belangrijkste resultaten
-
-
-
-\- Sterke opregulatie van ontstekingsgenen in RA
-
-\- Verrijking van immuun‑ en cytokineprocessen
-
-\- KEGG‑pathway \*\*hsa05323 (Rheumatoid arthritis)\*\* significant geactiveerd
-
-\- Duidelijke activatie van TNF‑α, IL‑6, chemokines en RANKL‑signaling
-
-
-
-\---
-
-
-
-\## Documentatie
-
-
-
-\- \[Inleiding](docs/Inleiding.md)
-
-\- \[Methode](docs/Methode.md)
-
-\- \[Resultaten](docs/Resultaten.md)
-
-\- \[Conclusie](docs/Conclusie.md)
-
-\- \[Data Stewardship](beheren/DataStewardship.md)
-
-\- \[GitHub Beheren](beheren/GitHubBeheren.md)
-
-
+Uitleg:  
+Deze KEGG‑pathway is automatisch ingekleurd met log2‑fold changes uit DESeq2.
+Rood = opregulatie, groen = neerregulatie.
+De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes, chemokines, T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming.
+Dit bevestigt dat RA‑samples sterke immuunactivatie en weefselremodellering vertonen.
 
 INLEIDING
+Rheumatoïde artritis (RA) is een chronische auto‑immuunziekte waarbij het immuunsysteem het synoviale weefsel aanvalt. Dit leidt tot ontsteking, gewrichtsschade en functieverlies. Transcriptomics maakt het mogelijk om genexpressiepatronen tussen patiënten en gezonde individuen te vergelijken en zo inzicht te krijgen in de moleculaire processen die bijdragen aan RA.
 
-Rheumatoïde artritis (RA) is een chronische auto-immuunziekte waarbij het immuunsysteem het eigen synoviale weefsel aanvalt. Dit leidt tot ontsteking, gewrichtsschade en progressieve functieverlies. Hoewel RA klinisch goed beschreven is, blijft de onderliggende moleculaire regulatie complex. Transcriptomics biedt een krachtige methode om genexpressiepatronen te vergelijken tussen patiënten en gezonde individuen, waardoor inzicht ontstaat in de biologische processen die bijdragen aan ziekteactiviteit.
-
-In dit project zijn RNA‑seq data van vier reumapatiënten en vier gezonde controles geanalyseerd. Het doel van deze analyse is om verschillen in genexpressie te identificeren en te onderzoeken welke biologische processen en pathways betrokken zijn bij RA. Door gebruik te maken van een volledige bio-informatica workflow — van read‑mapping tot differentiële expressie en pathway‑analyse — wordt een reproduceerbaar en transparant overzicht gegeven van de moleculaire veranderingen die kenmerkend zijn voor RA.
-
-De resultaten worden gepresenteerd via een GitHub‑pagina, waarin scripts, figuren, resultaten en documentatie overzichtelijk zijn georganiseerd. Hiermee wordt niet alleen voldaan aan de inhoudelijke leerdoelen van transcriptomics, maar ook aan de competentie Beheren, waarbij data‑organisatie, versiebeheer en reproduceerbaarheid centraal staan.
+In dit project zijn RNA‑seq data van vier RA‑patiënten en vier gezonde controles geanalyseerd. Het doel is om differentieel tot expressie komende genen te identificeren en te bepalen welke biologische processen en pathways betrokken zijn. De volledige workflow — van mapping tot pathway‑analyse — is reproduceerbaar uitgevoerd en gedocumenteerd in deze GitHub‑repository.
 
 METHODE
+Voor deze analyse zijn paired‑end RNA‑seq datasets gebruikt. Eerst is een index van het humane referentiegenoom (GRCh38) gebouwd met Rsubread, waarna alle FASTQ‑reads zijn gemapt. De BAM‑bestanden zijn gesorteerd en geïndexeerd met Rsamtools.
 
-Voor deze transcriptomicsanalyse zijn RNA‑seq datasets van vier reumapatiënten en vier gezonde controles gebruikt. Alle analyses zijn uitgevoerd in R. Eerst is een werkdirectory ingesteld waarin de FASTQ‑bestanden, het referentiegenoom (GRCh38) en de annotatiebestanden aanwezig waren. Met het pakket Rsubread is een index van het humane referentiegenoom gebouwd, waarna de paired‑end FASTQ‑reads van alle acht samples zijn gemapt met align(). De resulterende BAM‑bestanden zijn gesorteerd en geïndexeerd met Rsamtools.
+Gen‑tellingen zijn verkregen met featureCounts op basis van een GTF‑annotatie. De tellingenmatrix is ingevoerd in DESeq2, waarbij een design met twee condities (RA vs Normal) is gebruikt. Met DESeq() zijn normalisatie, dispersieschatting en differentiële expressie uitgevoerd. De resultaten zijn gevisualiseerd met o.a. een volcano plot.
 
-Gen‑tellingen zijn verkregen met featureCounts() op basis van de GTF‑annotatie. De tellingenmatrix is vervolgens ingelezen in DESeq2, waarbij een experimenteel design is opgesteld met twee condities: RA en Normal. Met DESeq() zijn normalisatie, dispersieschatting en differentiële expressie uitgevoerd. De resultaten zijn opgeslagen en gevisualiseerd met o.a. een volcano plot.
+Voor functionele analyse is goseq gebruikt. SYMBOL‑namen zijn omgezet naar ENSEMBL‑ID’s, waarna lijsten van alle genen en significante genen zijn gemaakt. Met nullp() is gecorrigeerd voor genlengtebias en zijn verrijkte GO‑termen bepaald.
 
-Voor functionele analyse is goseq gebruikt. SYMBOL‑namen zijn omgezet naar ENSEMBL‑ID’s, waarna lijsten van alle genen en significante genen zijn gemaakt. Met nullp() is gecorrigeerd voor genlengtebias en zijn GO‑termen verrijkt. De top‑GO‑termen zijn gevisualiseerd met ggplot2.
+Tot slot is KEGG‑pathwayanalyse uitgevoerd met pathview, waarbij log2‑fold changes uit DESeq2 zijn gebruikt om de pathway hsa05323 (Rheumatoid arthritis) in te kleuren.
 
-Tot slot is KEGG‑pathwayanalyse uitgevoerd met pathview, waarbij log2‑fold changes uit DESeq2 zijn gebruikt om pathway hsa05323 (Rheumatoid arthritis) in te kleuren.
+RESULTATEN (uitgebreid)
+De KEGG‑pathway hsa05323 (Rheumatoid arthritis) toont duidelijke activatie van ontstekingsroutes in RA‑samples. Pro‑inflammatoire cytokines zoals TNF‑α, IL‑1, IL‑6 en IL‑18 zijn sterk opgereguleerd, wat de ontstekingscascade versterkt via NF‑κB‑signaling.
 
-RESULTATEN
+Daarnaast zijn meerdere chemokines verhoogd tot expressie, waaronder CXCL1, CXCL5, IL‑8, CCL2, CCL3 en CCL20, wat duidt op actieve rekrutering van immuuncellen naar het synoviale weefsel.
 
-De KEGG‑pathway hsa05323 (Rheumatoid arthritis) laat zien welke moleculaire processen bijdragen aan de chronische ontsteking en gewrichtsschade die kenmerkend zijn voor RA. In mijn dataset (4 RA‑samples vs. 4 gezonde controles) is deze pathway duidelijk geactiveerd. De ingekleurde pathway toont sterke opregulatie van pro‑inflammatoire cytokines zoals TNF‑α, IL‑1, IL‑6 en IL‑18, die de ontstekingscascade versterken via NF‑κB‑signaling. Daarnaast zijn meerdere chemokines, waaronder CXCL1, CXCL5, IL‑8, CCL2, CCL3 en CCL20, verhoogd tot expressie, wat duidt op actieve rekrutering van immuuncellen naar het synoviale weefsel.
+Ook pathways betrokken bij T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming zijn verhoogd, wat past bij zowel auto‑immuniteit als botresorptie. Angiogenese‑factoren zoals VEGF ondersteunen de vorming van pannusweefsel.
 
-Ook zijn routes betrokken bij T‑cel activatie (TCR‑signaling, CD28‑co‑stimulatie) en B‑cel activatie (APRIL, BAFF/BLYS) verhoogd, wat past bij de auto‑immuuncomponent van RA. Verder is er duidelijke activatie van RANKL‑gemedieerde osteoclastvorming, ondersteund door verhoogde expressie van osteoclastmarkers zoals CTSK en TRAP, wat bijdraagt aan botresorptie en gewrichtsdestructie. Tot slot zijn angiogenese‑factoren zoals VEGF en Ang1/Tie2 verhoogd, wat de vorming van pannusweefsel ondersteunt.
-
-Deze resultaten bevestigen dat de RA‑samples in mijn dataset sterke immuunactivatie en weefselremodellering vertonen, consistent met de bekende pathofysiologie van RA.
+Deze resultaten bevestigen dat RA‑samples sterke immuunactivatie en weefselremodellering vertonen, consistent met de bekende pathofysiologie van RA.
 
 CONCLUSIE
+De RNA‑seq analyse toont duidelijke verschillen in genexpressie tussen RA‑patiënten en gezonde controles. Ontstekingsgerelateerde genen zijn sterk opgereguleerd in RA‑samples. GO‑analyse laat verrijking zien van immuunactivatie, cytokineproductie en leukocytenmigratie. De KEGG‑pathwayanalyse bevestigt activatie van belangrijke ontstekingsroutes, waaronder TNF‑signaling, chemokine‑signaling en osteoclastvorming.
 
-De RNA‑seq analyse toont duidelijke verschillen in genexpressie tussen reumapatiënten en gezonde controles. De DESeq2‑analyse laat zien dat vooral ontstekingsgerelateerde genen sterk opgereguleerd zijn in RA‑samples. Dit patroon wordt bevestigd door de GO‑analyse, waarin termen gerelateerd aan immuunactivatie, cytokineproductie en leukocytenmigratie significant verrijkt zijn. Deze processen passen bij de bekende pathofysiologie van RA.
+Deze geïntegreerde analyse geeft een consistent biologisch beeld dat overeenkomt met de klinische kenmerken van RA. Toekomstig onderzoek kan zich richten op RA‑subtypes of op het identificeren van genen die mogelijk therapeutische targets vormen.
 
-De KEGG‑analyse met pathway hsa05323 (Rheumatoid arthritis) laat zien dat meerdere sleutelcomponenten van RA‑ontsteking verhoogd actief zijn. Pro‑inflammatoire cytokines zoals TNF‑α, IL‑1, IL‑6 en IL‑18 kleuren rood in de pathway, evenals chemokines zoals CXCL1, CXCL5, IL‑8, CCL2 en CCL3, die verantwoordelijk zijn voor rekrutering van immuuncellen naar het synoviale weefsel. Ook routes voor T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming zijn verhoogd, wat duidt op zowel auto‑immuniteit als botresorptie.
+COMPETENTIE BEHEREN
+Zie de bestanden in de map /beheren:
 
-Deze resultaten bevestigen dat de RA‑samples in deze dataset sterke immuunactivatie en weefselremodellering vertonen. De combinatie van DE‑analyse, GO‑verrijking en KEGG‑pathwayanalyse toont een consistent biologisch beeld dat overeenkomt met de klinische kenmerken van RA. Toekomstig onderzoek kan zich richten op subgroepen binnen RA of op het identificeren van genen die mogelijk therapeutische targets vormen.
+DataStewardship.md
 
+GitHubBeheren.md
+
+Hierin wordt uitgelegd hoe data‑organisatie, versiebeheer en reproduceerbaarheid zijn toegepast binnen dit project.
 
 Sander – J2P4 Transcriptomics, NHL Stenden Hogeschool
-
