@@ -313,6 +313,11 @@ cat("Aantal significante GO-termen:", nrow(enriched.GO), "\n")
 
 if(nrow(enriched.GO) > 0){
   
+ # Filter brede GO-termen die weinig biologisch zeggen
+  broad_terms <- c("macromolecule", "catabolic", "metabolic process")
+  enriched.GO <- enriched.GO[!grepl(paste(broad_terms, collapse="|"), enriched.GO$term), ]
+  
+  
   topGO <- enriched.GO[
     order(enriched.GO$over_represented_pvalue),
   ][1:min(10, nrow(enriched.GO)), ]
@@ -324,7 +329,7 @@ if(nrow(enriched.GO) > 0){
                aes(
                  x = hitsPerc,
                  y = reorder(term, over_represented_pvalue),
-                 colour = over_represented_pvalue,
+                 colour = -log10(over_represented_pvalue),
                  size = numDEInCat
                )) +
     geom_point() +
@@ -337,6 +342,7 @@ if(nrow(enriched.GO) > 0){
       size = "Gene count"
     ) +
     theme_minimal()
+    scale_colour_gradient(low = "lightblue", high = "darkblue")  
   
   print(p1)
   ggsave("GO_top10.png", plot = p1, width = 10, height = 6)
