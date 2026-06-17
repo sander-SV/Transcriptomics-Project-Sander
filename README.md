@@ -48,11 +48,8 @@ De methodiek is als volgt onderverdeeld:
 Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (vX.X.X).
 Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
 Differentiële Expressie Analyse: Met het package DESeq2 (vX.X.X) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
-Functionele Verrijking:
-GO-analyse: Met het package goseq (vX.X.X) is een Gene Ontology analyse uitgevoerd, waarbij is gecorrigeerd voor genlengte-bias (genome hg38).
-KEGG Pathway Analyse: Met het package pathview (vX.X.X) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). 
-Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
-De volledige, gedocumenteerde code voor deze stappen is terug te vinden in de map /scripts.
+GO-analyse: Met het package goseq (vX.X.X) is een Gene Ontology analyse uitgevoerd om verrijkte biologische processen te identificeren. Voor deze analyse is gebruikgemaakt van de genlengte-informatie van de hg19 build als proxy voor de hg38 mapping-data. Dit is gedaan omdat de specifieke lengte-database voor hg38 lokaal niet beschikbaar was. Gezien de minimale verschillen in genlengtes tussen deze versies, heeft dit geen significante invloed op de bias-correctie, maar het is vermeld om de volledige reproduceerbaarheid te waarborgen.
+KEGG Pathway Analyse: Met het package pathview (vX.X.X) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
 
 ---
 
