@@ -15,7 +15,7 @@ Door specifiek in te zoomen op deze enzymen binnen de hsa05323-pathway, wordt ge
 
 **Gebruikte wetenschappelijke bronnen:**
 *   [1. Platzer et al. (2019) - Analyse van genexpressie en co-expressiepatronen in RA](https://pubmed.ncbi.nlm.nih.gov/31344123/)
-*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f
+*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f](https://pubmed.ncbi.nlm.nih.gov/12509618/)
 
 ---
 
@@ -28,8 +28,6 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen RA-patiënten en gezonde controles?
 2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA-samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
 3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex (ATP6V-genen) in de synoviale biopten van RA-patiënten?
-
-_Relevante literatuur en bronnen worden genoemd in `/docs/Inleiding.md`._
 
 ---
 
