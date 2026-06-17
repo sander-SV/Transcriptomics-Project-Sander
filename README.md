@@ -1,13 +1,21 @@
-# RNA‑seq analyse van Rheumatoïde Artritis (RA)
-**Van raw reads tot pathway‑inzicht (RA vs gezonde controles)**
+# Transcriptomics Analyse van Rheumatoïde Artritis versus Gezonde Controles: De Rol van MMP1/3, CTSL en V-ATPase binnen de hsa05323-pathway.
 
-## Inleiding
+# Inleiding
 
-Rheumatoïde artritis (RA) is een chronische auto‑immuunziekte waarbij het immuunsysteem het synoviale weefsel aanvalt. Dit leidt tot persisterende gewrichtsontsteking, kraakbeen- en botschade en uiteindelijk functieverlies. RA heeft een aanzienlijke impact op kwaliteit van leven en arbeidsvermogen, en komt voor bij ongeveer 0,5–1% van de bevolking wereldwijd.
+Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wordt gekenmerkt door persisterende ontsteking van het synoviale weefsel, wat onbehandeld leidt tot onomkeerbare kraakbeen en botschade.
+Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics-studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019).
+Binnen dit proces speelt de KEGG-pathway hsa05323 (Rheumatoid Arthritis) een sleutelrol; hierin is te zien hoe cytokines de productie van destructieve moleculen aansturen.
+Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL).
+Onderzoek heeft aangetoond dat de expressie van CTSL in synoviale fibroblasten sterk wordt gereguleerd door cytokines, wat direct bijdraagt aan de afbraak van de gewrichtsmatrix (Hummel et al., 2003).
+Daarnaast wordt gekeken naar het V-ATPase complex, een protonpomp die cruciaal is voor de verzuring van de extracellulaire ruimte door osteoclasten, wat noodzakelijk is voor botresorptie.
+Het doel van dit project is om middels een reproduceerbare RNA-seq workflow de genexpressie van vier RA-patiënten te vergelijken met vier gezonde controles
+Door specifiek in te zoomen op deze enzymen binnen de hsa05323-pathway, wordt getracht de mechanismen achter de gewrichtsdestructie bij RA verder te ontrafelen.
 
-Met transcriptomics (RNA‑seq) kunnen genexpressieprofielen van RA‑patiënten vergeleken worden met gezonde individuen. Dit maakt het mogelijk om de onderliggende moleculaire processen en pathways in kaart te brengen en potentiële therapeutische aangrijpingspunten te identificeren.
+---
 
-In dit project zijn RNA‑seq data van vier RA‑patiënten en vier gezonde controles geanalyseerd. De volledige workflow — van mapping tot pathway‑analyse — is reproduceerbaar uitgevoerd en gedocumenteerd in deze GitHub‑repository.
+**Gebruikte wetenschappelijke bronnen:**
+*   [1. Platzer et al. (2019) - Analyse van genexpressie en co-expressiepatronen in RA](https://pubmed.ncbi.nlm.nih.gov/31344123/)
+*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f](https://pubmed.ncbi.nlm.nih.gov/12509618/)
 
 ---
 
@@ -20,8 +28,6 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen RA-patiënten en gezonde controles?
 2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA-samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
 3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex (ATP6V-genen) in de synoviale biopten van RA-patiënten?
-
-_Relevante literatuur en bronnen worden genoemd in `/docs/Inleiding.md`._
 
 ---
 
