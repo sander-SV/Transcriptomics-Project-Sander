@@ -9,7 +9,7 @@ Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichts
 Onderzoek heeft aangetoond dat de expressie van CTSL in synoviale fibroblasten sterk wordt gereguleerd door cytokines, wat direct bijdraagt aan de afbraak van de gewrichtsmatrix (Hummel et al., 2003).
 Daarnaast wordt gekeken naar het V-ATPase complex, een protonpomp die cruciaal is voor de verzuring van de extracellulaire ruimte door osteoclasten, wat noodzakelijk is voor botresorptie.
 Het doel van dit project is om middels een reproduceerbare RNA-seq workflow de genexpressie van vier RA-patiënten te vergelijken met vier gezonde controles
-Door specifiek in te zoomen op deze enzymen binnen de hsa05323-pathway, wordt getracht de mechanismen achter de gewrichtsdestructie bij RA verder te ontrafelen.
+Door specifiek in te zoomen op deze enzymen binnen de hsa05323‑pathway wordt geprobeerd de mechanismen achter gewrichtsdestructie bij RA verder te ontrafelen.
 
 ---
 
@@ -55,12 +55,31 @@ KEGG Pathway Analyse: Met het package pathview (v1.50.0) is specifiek ingezoomd 
 
 ## Repository structuur
 
-- `/data` → FASTQ, BAM, GTF en referentiegenoom  
-- `/scripts` → volledig R‑script (mapping → DE → GO → KEGG)  
-- `/results` → DESeq2‑tabellen, GO‑resultaten, KEGG‑tabellen  
-- `/figures` → volcano plot, GO‑plot, KEGG‑pathwayfiguren  
-- `/docs` → Inleiding, Methode, Resultaten, Conclusie  
-- `/beheren` → Data Stewardship & GitHub‑beheer (competentie Beheren)  
+Deze repository is ingericht volgens de principes van reproduceerbare bio-informatica.  
+Elke map heeft een duidelijke functie binnen de workflow:
+
+- **/data** – ruwe FASTQ, BAM, index en referentiegenoom (niet gecommit i.v.m. grootte).  
+- **/scripts** – volledig R‑script voor mapping → DESeq2 → GO → KEGG.  
+- **/results** – tabellen met DE‑genen, GO‑resultaten en KEGG‑uitvoer.  
+- **/figures** – volcano plot, GO‑plot en KEGG‑visualisaties.  
+- **/docs** – Inleiding, Methode, Resultaten en Conclusie.  
+- **/beheren** – Data stewardship en GitHub‑beheer (competentie Beheren).
+
+
+---
+
+## Reproduceerbaarheid
+
+Deze analyse is volledig reproduceerbaar door:
+
+1. De repository te clonen  
+   ```bash
+   git clone https://github.com/sander-SV/Transcriptomics-Project-Sander
+   
+2. Download de ruwe data via NCBI SRA:
+   SRR4785819, SRR4785820, SRR4785828, SRR4785831,
+   SRR4785979, SRR4785980, SRR4785986, SRR4785988.
+
 
 ---
 
@@ -78,7 +97,7 @@ Deze volcano plot toont de log2‑fold change (x‑as) tegenover de −log10(p�
 
 ![GO top 10](results/GO_analyse.png)
 
-Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt, wat past bij de pathofysiologie van RA.
+Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt, wat past bij de pathofysiologie van RA. Daarnaast worden enkele cellulaire componenten zoals nucleoplasm en organelle lumen verrijkt gevonden, wat past bij verhoogde transcriptie‑activiteit in RA‑synovium.
 
 ---
 
@@ -92,16 +111,23 @@ De KEGG‑pathway hsa05323 is automatisch ingekleurd met log2‑fold changes uit
 
 ## Conclusie
 
-**Hoofdvraag**  
-De RNA‑seq analyse toont duidelijke verschillen in genexpressie tussen RA‑patiënten en gezonde controles. Ontstekingsgerelateerde genen zijn sterk opgereguleerd in RA‑samples.
+Deze RNA‑seq analyse laat duidelijke verschillen zien tussen synoviaal weefsel van RA‑patiënten en gezonde controles. De differentiële expressieanalyse toont sterke opregulatie van ontstekingsgerelateerde genen, waaronder cytokines, chemokines en immuunreceptoren. Dit bevestigt dat RA‑synovium zich in een toestand van chronische immuunactivatie bevindt.
 
-**Deelvragen**
+De GO‑analyse ondersteunt dit beeld: processen zoals adaptive immune response, leukocyte activation en cytokine-mediated signaling zijn significant verrijkt. Daarnaast wijzen verrijkte nucleaire componenten op verhoogde transcriptie‑activiteit in ontstoken synovium.
 
-1. **Differentiële genexpressie:** meerdere genen betrokken bij ontsteking, cytokineproductie en immuuncelactivatie zijn significant differentieel tot expressie tussen RA en controles.  
-2. **Biologische processen:** GO‑analyse laat verrijking zien van immuunactivatie, cytokineproductie en leukocytenmigratie.  
-3. **Pathways:** KEGG‑analyse bevestigt activatie van belangrijke ontstekingsroutes, waaronder TNF‑signaling, chemokine‑signaling en osteoclastvorming.  
+Binnen de KEGG‑pathway hsa05323 vallen de matrix‑afbrekende enzymen MMP1, MMP3 en CTSL op. Deze genen zijn sterk opgereguleerd en passen bij hun bekende rol in kraakbeenafbraak. Ook meerdere ATP6V‑subunits van het V‑ATPase complex zijn verhoogd tot expressie, wat duidt op geactiveerde osteoclasten en verhoogde botresorptie.
 
-Deze geïntegreerde analyse geeft een consistent biologisch beeld dat overeenkomt met de klinische kenmerken van RA.
+Beantwoording van de onderzoeksvragen
+Differentiële expressie: RA‑samples tonen sterke opregulatie van ontstekings- en afbraakgenen.
+
+Biologische processen: GO‑analyse bevestigt activatie van immuunroutes.
+
+Pathway‑activatie: KEGG toont activatie van TNF‑, IL‑1‑ en RANKL‑routes.
+
+Specifieke focus: MMP1, MMP3, CTSL en V‑ATPase‑genen zijn significant opgereguleerd.
+
+# Hoofdvraag
+Deze resultaten tonen aan dat MMP1/3, CTSL en het V‑ATPase complex een centrale rol spelen in matrixafbraak en botresorptie binnen de hsa05323‑pathway, en daarmee direct bijdragen aan gewrichtsschade bij RA.
 
 ---
 
