@@ -42,53 +42,29 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 
 ### Bioinformatica workflow
 
-De analyse is uitgevoerd in R met de volgende hoofdonderdelen:
-
-**Software en versies:**  
-R 4.3.x  
-Rsubread 2.x  
-DESeq2 1.x  
-goseq 1.x  
-pathview 1.x  
-
 **Referentiegenoom:**  
 GRCh38 (GCF_000001405.40)  
 https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/
 
-- **Mapping**
-  - Package: `Rsubread`
-  - Index gebouwd op GRCh38 (`buildindex`)
-  - Paired‑end reads gemapt naar het referentiegenoom (`align`)
+De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naar functionele biologische resultaten. Deze volledige workflow is uitgevoerd in R (versie 4.3.x).
 
-- **BAM‑verwerking**
-  - Package: `Rsamtools`
-  - Sorteren en indexeren van BAM‑bestanden (`sortBam`, `indexBam`)
+![stroomschema](assets/stroomschema-workflow.png)
 
-- **Tellingenmatrix**
-  - Package: `Rsubread::featureCounts`
-  - Annotatie: GTF‑bestand (GRCh38)
-  - Output: gen‑tellingen per sample → `count_matrix`
+De methodiek is als volgt onderverdeeld:
+Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (vX.X.X)
+. Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix
+.
+Differentiële Expressie Analyse: Met het package DESeq2 (vX.X.X) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles
+. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen
+.
+Functionele Verrijking:
+GO-analyse: Met het package goseq (vX.X.X) is een Gene Ontology analyse uitgevoerd, waarbij is gecorrigeerd voor genlengte-bias (genome hg38)
+.
+KEGG Pathway Analyse: Met het package pathview (vX.X.X) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis)
+. Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
+De volledige, gedocumenteerde code voor deze stappen is terug te vinden in de map /scripts
 
-- **Differentiële expressie**
-  - Package: `DESeq2`
-  - Design: `RA` vs `Normal`
-  - Output: log2 fold change, p‑waarden, FDR‑gecorrigeerde p‑waarden
 
-- **GO‑analyse**
-  - Packages: `goseq`, `geneLenDataBase`, `GO.db`, `org.Hs.eg.db`
-  - SYMBOL → ENSEMBL mapping (`mapIds`)
-  - Correctie voor genlengtebias (`nullp`)
-  - Verrijkte GO‑termen bepaald met `goseq`
-
-- **KEGG‑pathwayanalyse**
-  - Package: `pathview`
-  - Pathway: **hsa05323 (Rheumatoid arthritis)**
-  - Input: log2 fold changes uit DESeq2
-  - Output: ingekleurde KEGG‑pathwayfiguren
- 
-
-De volledige code is te vinden in `/scripts/transcriptomics_RA.R`.  
-Inputbestanden staan in `/data`, resultaten in `/results` en figuren in `/figures`.
 
 ---
 
