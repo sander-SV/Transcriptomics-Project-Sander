@@ -247,12 +247,14 @@ names(gene.vector) <- ALL
 # =========================
 
 pwf <- nullp(gene.vector, "hg19", "ensGene")
+#werkt dit niet verander dan "hg38 -> hg19"
 
 # =========================
 # 10.5 GO-enrichment uitvoeren
 # =========================
 
 GO.wall <- goseq(pwf, "hg19", "ensGene")
+#werkt dit niet verander dan "hg38 -> hg19"
 
 # Resultaten bekijken
 head(GO.wall)
@@ -283,12 +285,14 @@ sigData <- sigData[!is.na(names(sigData))]
 #-------------------------------
 
 pwf <- nullp(sigData, "hg19", "ensGene")
+#werkt dit niet verander dan "hg38 -> hg19"
 
 #-------------------------------
 # 11.3 GO enrichment analyse
 #-------------------------------
 
 GO.wall <- goseq(pwf, "hg19", "ensGene", test.cats = c("GO:BP"))
+#werkt dit niet verander dan "hg38 -> hg19"
 
 #-------------------------------
 # 11.4 Filter significante GO termen
