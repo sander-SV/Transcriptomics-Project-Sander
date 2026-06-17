@@ -1,5 +1,5 @@
 # =========================
-# 📁 1. WORKING DIRECTORY
+#  1. WORKING DIRECTORY
 # =========================
 # Zet je map waar alle FASTQ/BAM/GENOME files staan
 setwd("C:/Users/sande/Documents/R data/genoom")
@@ -7,7 +7,7 @@ getwd()
 
 
 # =========================
-# 📦 2. PACKAGES INSTALL + LOAD
+#  2. PACKAGES INSTALL + LOAD
 # =========================
 # Alleen 1x runnen als je ze nog niet hebt
 install.packages("BiocManager")
@@ -20,6 +20,7 @@ BiocManager::install("goseq")
 BiocManager::install("geneLenDataBase")
 BiocManager::install("GO.db")
 BiocManager::install("org.Hs.eg.db")
+BiocManager::install("ggplot2")
 
 # Laden van packages
 library(Rsubread)
@@ -30,9 +31,10 @@ library(goseq)
 library(geneLenDataBase)
 library(GO.db)
 library(org.Hs.eg.db)
+library(ggplot2)
 
 # =========================
-# 🧬 3. REFERENTIEGENOOM INDEX
+#  3. REFERENTIEGENOOM INDEX
 # =========================
 # Maakt zoekindex voor mapping (1x nodig)
 buildindex(
@@ -44,7 +46,7 @@ buildindex(
 
 
 # =========================
-# 🔬 4. MAPPING (FASTQ → BAM)
+#  4. MAPPING (FASTQ → BAM)
 # =========================
 # Reads mappen naar referentiegenoom
 #bij paired moet deze code anders
@@ -106,7 +108,7 @@ align(index="ref_genoom",
       input_format = "PE")
 
 # =========================
-# 🔁 5. SORT + INDEX BAM
+#  5. SORT + INDEX BAM
 # =========================
 # BELANGRIJK: nodig voor featureCounts + IGV
 
@@ -121,7 +123,7 @@ lapply(samples, function(s) {sortBam(file = paste0(s, '.BAM'), destination = pas
 lapply(samples, function(s) {indexBam(file = paste0(s, '.sorted.bam'))})
 
 # =========================
-# 📊 6. COUNT MATRIX (featureCounts)
+#  6. COUNT MATRIX (featureCounts)
 # =========================
 # Zet BAM → gen-tellingen
 
@@ -145,7 +147,7 @@ counts <- featureCounts(
 )
 
 # =========================
-# 💾 7. COUNT MATRIX OPSLAAN
+#  7. COUNT MATRIX OPSLAAN
 # =========================
 # Alleen counts eruit halen
 
@@ -162,9 +164,13 @@ colnames(count_matrix) <- c("SRR4785988.sorted.bam",
 
 write.csv(count_matrix, "count_matrix_genoom.csv")
 
+count_matrix <- as.matrix(read.table("count_matrix_RA.txt",
+                                     header = TRUE,
+                                     row.names = 1,
+                                     sep = "\t"))
 
 # =========================
-# 📈 8. DIFFERENTIËLE EXPRESSIE (DESeq2)
+#  8. DIFFERENTIËLE EXPRESSIE (DESeq2)
 # =========================
 
 treatment <- c("Normal","Normal","Normal","Normal","RA","RA","RA","RA")
@@ -177,10 +183,11 @@ dds <- DESeq(dds)
 
 results <- results(dds, contrast = c("treatment","RA","Normal"))
 
-
+# DE-resultaten opslaan voor GitHub
+write.csv(as.data.frame(results), "DE_results.csv")
 
 # =========================
-# 📊 9. VOLCANO PLOT
+#  9. VOLCANO PLOT
 # =========================
 
 EnhancedVolcano(results,
@@ -189,13 +196,8 @@ EnhancedVolcano(results,
                 y = "padj")
 
 
-
-
-
-
-#dit hele stuk werkt nog niet (GO analyse)
 #=================================
-# 🧬 10. GENE ONTOLOGY (GO) ANALYSE — GOSEQ
+#  10. GENE ONTOLOGY (GO) ANALYSE — GOSEQ
 #=================================
 
 # Benodigde packages laden
@@ -256,16 +258,98 @@ GO.wall <- goseq(pwf, "hg19", "ensGene")
 head(GO.wall)
 
 #===============================
-#  🧬 11. SIGNIFICANTE GO‑TERMEN
+#  11. GO ENRICHMENT ANALYSE (GOSEQ)
 #===============================
 
-enriched.GO <- GO.wall[GO.wall$over_represented_pvalue < 0.05, ]
+library(goseq)
+library(GO.db)
+library(org.Hs.eg.db)
+library(ggplot2)
 
-nrow(enriched.GO)
-head(enriched.GO)
+#-------------------------------
+# 11.1 Maak DE gene vector
+#-------------------------------
 
+# Significant genes (FDR < 0.01)
+sigData <- as.integer(!is.na(results$padj) & results$padj < 0.01)
+
+names(sigData) <- results$ensembl
+
+# Verwijder NA’s
+sigData <- sigData[!is.na(names(sigData))]
+
+#-------------------------------
+# 11.2 Fit Probability Weighting Function (PWF)
+#-------------------------------
+
+pwf <- nullp(sigData, "hg19", "ensGene")
+
+#-------------------------------
+# 11.3 GO enrichment analyse
+#-------------------------------
+
+GO.wall <- goseq(pwf, "hg19", "ensGene", test.cats = c("GO:BP"))
+
+#-------------------------------
+# 11.4 Filter significante GO termen
+#-------------------------------
+
+enriched.GO <- GO.wall[
+  !is.na(GO.wall$over_represented_pvalue) &
+    GO.wall$over_represented_pvalue < 0.05,
+]
+
+write.csv(enriched.GO, "GO_results.csv")
+
+cat("Aantal significante GO-termen:", nrow(enriched.GO), "\n")
+
+#-------------------------------
+# 11.5 Plot top 10 GO termen
+#-------------------------------
+
+if(nrow(enriched.GO) > 0){
+  
+  topGO <- enriched.GO[
+    order(enriched.GO$over_represented_pvalue),
+  ][1:min(10, nrow(enriched.GO)), ]
+  
+  # hits eerst berekenen
+  topGO$hitsPerc <- topGO$numDEInCat * 100 / topGO$numInCat
+  
+  p1 <- ggplot(topGO,
+               aes(
+                 x = hitsPerc,
+                 y = reorder(term, over_represented_pvalue),
+                 colour = over_represented_pvalue,
+                 size = numDEInCat
+               )) +
+    geom_point() +
+    expand_limits(x = 0) +
+    labs(
+      title = "GO enrichment analysis (top 10)",
+      x = "Hits (%)",
+      y = "GO term",
+      colour = "p-value",
+      size = "Gene count"
+    ) +
+    theme_minimal()
+  
+  print(p1)
+  ggsave("GO_top10.png", plot = p1, width = 10, height = 6)
+  
+} else {
+  cat("Geen significante GO-termen gevonden\n")
+}
+
+#-------------------------------
+# 11.6 GO term uitleg (optioneel)
+#-------------------------------
+
+if(nrow(enriched.GO) > 0){
+  GOTERM[[enriched.GO$category[1]]]
+}
 #=========================
-#  🧬 12. GO‑TERMEN UITLEZEN (optioneel)
+#  12. GO‑TERMEN UITLEZEN (optioneel)
 #=========================
 
 for (go in enriched.GO$category) {
@@ -273,20 +357,24 @@ for (go in enriched.GO$category) {
   cat("--------------------------------------\n")
 }
 
+# =========================
+# 13. KEGG PATHWAY ANALYSE (PATHVIEW)
+# =========================
 
+BiocManager::install("pathview")
+library(pathview)
 
+# Maak log2FC vector
+log2fc <- results$log2FoldChange
+names(log2fc) <- results$ensembl
+log2fc <- log2fc[!is.na(names(log2fc))]
 
-
-
-
-
-
-
-
-
-
-
-
-
+# Kies een KEGG pathway (voorbeeld: hsa04110 = Cell cycle)
+pathview(
+  gene.data = log2fc,
+  pathway.id = "hsa05323",
+  species = "hsa",
+  gene.idtype = "ENSEMBL",
+  limit = list(gene = 5))
 
 
