@@ -14,12 +14,12 @@ In dit project zijn RNA‑seq data van vier RA‑patiënten en vier gezonde cont
 ## Onderzoeksvragen
 
 ### **Hoofdvraag**
-- In welke mate verschillen genexpressieprofielen tussen RA‑patiënten en gezonde controles, en welke biologische processen en pathways zijn hierbij betrokken?
+Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase complex binnen de hsa05323-pathway bij de gewrichtsschade in patiënten met reumatoïde artritis?
 
 ### **Deelvragen**
-1. Welke genen zijn significant differentieel tot expressie tussen RA en gezonde controles?
-2. Welke biologische processen (GO‑termen) zijn verrijkt in RA‑samples?
-3. Welke KEGG‑pathways, met name hsa05323 (Rheumatoid arthritis), laten activatie zien in RA‑samples?
+1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen RA-patiënten en gezonde controles?
+2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA-samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
+3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex (ATP6V-genen) in de synoviale biopten van RA-patiënten?
 
 _Relevante literatuur en bronnen worden genoemd in `/docs/Inleiding.md`._
 
