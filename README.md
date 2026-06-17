@@ -34,37 +34,25 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 ## Data en methode
 
 ### Data
-- **Samples:** 4 RA‑patiënten, 4 gezonde controles (verkregen uit synoviumbiopten, weefsel uit het gewrichtsslijmvlies) 
-- **Sequencing:** Paired‑end RNA‑seq  
-- **Referentiegenoom:** Homo sapiens, GRCh38 (GCF_000001405.40)  
-- **Annotatie:** GTF‑bestand passend bij GRCh38  
-- **Herkomst data:** Publieke RNA‑seq dataset (SRA/GEO; accessionnummers in `/docs/Methode.md`)  
+De dataset voor dit onderzoek bestaat uit acht monsters verkregen via synoviumbiopten (weefsel uit het gewrichtsslijmvlies): vier monsters van patiënten met reumatoïde artritis (RA) en vier monsters van gezonde controles. 
+De analyse is uitgevoerd op publiek beschikbare paired-end RNA-sequencing data.
+Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapiens GRCh38 (versie GCF_000001405.40), met een bijbehorend GTF-bestand voor de nauwkeurige annotatie van genen.
 
 ### Bioinformatica workflow
 
-**Referentiegenoom:**  
-GRCh38 (GCF_000001405.40)  
-https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/
-
-De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naar functionele biologische resultaten. Deze volledige workflow is uitgevoerd in R (versie 4.3.x).
+De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naar functionele biologische resultaten. Deze volledige workflow is uitgevoerd in R (versie 4.5.2).
 
 ![stroomschema](assets/stroomschema-workflow.png)
 
 De methodiek is als volgt onderverdeeld:
-Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (vX.X.X)
-. Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix
-.
-Differentiële Expressie Analyse: Met het package DESeq2 (vX.X.X) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles
-. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen
-.
+Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (vX.X.X).
+Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
+Differentiële Expressie Analyse: Met het package DESeq2 (vX.X.X) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
 Functionele Verrijking:
-GO-analyse: Met het package goseq (vX.X.X) is een Gene Ontology analyse uitgevoerd, waarbij is gecorrigeerd voor genlengte-bias (genome hg38)
-.
-KEGG Pathway Analyse: Met het package pathview (vX.X.X) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis)
-. Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
-De volledige, gedocumenteerde code voor deze stappen is terug te vinden in de map /scripts
-
-
+GO-analyse: Met het package goseq (vX.X.X) is een Gene Ontology analyse uitgevoerd, waarbij is gecorrigeerd voor genlengte-bias (genome hg38).
+KEGG Pathway Analyse: Met het package pathview (vX.X.X) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). 
+Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
+De volledige, gedocumenteerde code voor deze stappen is terug te vinden in de map /scripts.
 
 ---
 
