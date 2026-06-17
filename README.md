@@ -34,7 +34,7 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 ## Data en methode
 
 ### Data
-- **Samples:** 4 RA‑patiënten, 4 gezonde controles  
+- **Samples:** 4 RA‑patiënten, 4 gezonde controles (verkregen uit synoviumbiopten, weefsel uit het gewrichtsslijmvlies) 
 - **Sequencing:** Paired‑end RNA‑seq  
 - **Referentiegenoom:** Homo sapiens, GRCh38 (GCF_000001405.40)  
 - **Annotatie:** GTF‑bestand passend bij GRCh38  
