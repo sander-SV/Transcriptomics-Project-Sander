@@ -38,6 +38,8 @@ De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naa
 
 ![stroomschema](figures/stroomschema-workflow.png)
 
+**Figuur 1.** stroomschema - workflow
+
 De methodiek is als volgt onderverdeeld:
 Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (v2.24.0).
 Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
@@ -54,7 +56,7 @@ Elke map heeft een duidelijke functie binnen de workflow:
 
 - **/beheren** – Data stewardship en GitHub‑beheer (competentie Beheren).
 - **/data** – ruwe FASTQ, BAM, index en referentiegenoom (niet gecommit i.v.m. grootte).
-- **/docs** – Inleiding, Methode, Resultaten en Conclusie.
+- **/docs** – Inleiding, Methode, Resultaten, Conclusie en packages.
 - **/figures** – volcano plot, GO‑plot en KEGG‑visualisaties.      
 - **/results** – tabellen met DE‑genen, GO‑resultaten en KEGG‑uitvoer.  
 - **/scripts** – volledig R‑script voor mapping → DESeq2 → GO → KEGG.
@@ -82,13 +84,17 @@ Deze analyse is volledig reproduceerbaar door:
 
 ![Volcano plot](results/volcano_plot.png)
 
-Deze volcano plot toont de log2‑fold change (x‑as) tegenover de −log10(p‑waarde) (y‑as). Genen rechts zijn opgereguleerd in RA, genen links zijn neer‑gereguleerd. De plot laat duidelijk zien dat meerdere ontstekingsgerelateerde genen sterk opgereguleerd zijn in RA‑samples.
+**Figuur 2.** Volcano plot van differentiële genexpressie tussen RA en gezonde controles. De x‑as toont de log2‑fold change en de y‑as de −log10(p‑waarde). Rode punten markeren genen die significant verschillend tot expressie zijn tussen de groepen; groene punten zijn niet significant. Genen links zijn neer‑gereguleerd in RA, genen rechts zijn opgereguleerd.
+
+De plot laat duidelijk zien dat meerdere ontstekingsgerelateerde genen sterk opgereguleerd zijn in RA‑samples.
 
 ---
 
 ### GO‑analyse – Top 10 verrijkte biologische processen
 
 ![GO top 10](results/GO_analyse.png)
+
+**Figuur 3.** Top 10 verrijkte GO‑termen (Biological Process) op basis van goseq‑analyse. Puntgrootte geeft het aantal differentieel tot expressie komende genen per term weer; kleurintensiteit correspondeert met de −log10(p‑waarde).
 
 Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt, wat past bij de pathofysiologie van RA. Daarnaast worden enkele cellulaire componenten zoals nucleoplasm en organelle lumen verrijkt gevonden, wat past bij verhoogde transcriptie‑activiteit in RA‑synovium.
 
@@ -98,7 +104,9 @@ Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Bela
 
 ![KEGG RA pathway](results/pathways/hsa05323.pathview.png)
 
-De KEGG‑pathway hsa05323 is automatisch ingekleurd met log2‑fold changes uit DESeq2. Rood = opregulatie, groen = neerregulatie. De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes, chemokines, T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming.
+**Figuur 4.** KEGG‑pathway hsa05323 (Rheumatoid Arthritis) ingekleurd met log2‑fold changes uit DESeq2. Rood geeft opregulatie aan, groen neerregulatie. De pathway visualiseert activatie van ontstekingsroutes en processen betrokken bij kraakbeenafbraak en osteoclast‑activiteit.
+
+De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes, chemokines, T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming.
 
 ---
 
