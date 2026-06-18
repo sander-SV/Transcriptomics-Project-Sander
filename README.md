@@ -42,7 +42,7 @@ Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapien
 
 De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naar functionele biologische resultaten. Deze volledige workflow is uitgevoerd in R (versie 4.5.2).
 
-![stroomschema](assets/stroomschema-workflow.png)
+![stroomschema](figures/stroomschema-workflow.png)
 
 De methodiek is als volgt onderverdeeld:
 Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (v2.24.0).
