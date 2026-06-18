@@ -13,12 +13,6 @@ Door specifiek in te zoomen op deze enzymen binnen de hsa05323‑pathway wordt g
 
 ---
 
-**Gebruikte wetenschappelijke bronnen:**
-*   [1. Platzer et al. (2019) - Analyse van genexpressie en co-expressiepatronen in RA](https://pubmed.ncbi.nlm.nih.gov/31344123/)
-*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f](https://pubmed.ncbi.nlm.nih.gov/12509618/)
-
----
-
 ## Onderzoeksvragen
 
 ### **Hoofdvraag**
@@ -36,7 +30,7 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 ### Data
 De dataset voor dit onderzoek bestaat uit acht monsters verkregen via synoviumbiopten (weefsel uit het gewrichtsslijmvlies): vier monsters van patiënten met reumatoïde artritis (RA) en vier monsters van gezonde controles. 
 De analyse is uitgevoerd op publiek beschikbare paired-end RNA-sequencing data.
-Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapiens GRCh38 (versie GCF_000001405.40), met een bijbehorend GTF-bestand voor de nauwkeurige annotatie van genen.
+Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapiens GRCh38 (versie GCF_000001405.40), met een bijbehorend GTF-bestand voor de nauwkeurige annotatie van genen. (benoem het artikel waar het weg komt en ook hoe ze het hebben verkregen iluminei)
 
 ### Bioinformatica workflow
 
@@ -138,6 +132,11 @@ Zie de bestanden in `/beheren`:
 - `GitHubBeheren.md` – commits, branches, mapstructuur, documentatie  
 
 Deze repository is zo ingericht dat een andere gebruiker de analyse kan klonen, de R‑scripts kan uitvoeren en de resultaten kan reproduceren.
+
+---
+## bronnen
+*   [1. Platzer et al. (2019) - Analyse van genexpressie en co-expressiepatronen in RA](https://pubmed.ncbi.nlm.nih.gov/31344123/)
+*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f](https://pubmed.ncbi.nlm.nih.gov/12509618/)
 
 ---
 
