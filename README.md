@@ -58,13 +58,12 @@ KEGG Pathway Analyse: Met het package pathview (v1.50.0) is specifiek ingezoomd 
 Deze repository is ingericht volgens de principes van reproduceerbare bio-informatica.  
 Elke map heeft een duidelijke functie binnen de workflow:
 
-- **/data** – ruwe FASTQ, BAM, index en referentiegenoom (niet gecommit i.v.m. grootte).  
-- **/scripts** – volledig R‑script voor mapping → DESeq2 → GO → KEGG.  
-- **/results** – tabellen met DE‑genen, GO‑resultaten en KEGG‑uitvoer.  
-- **/figures** – volcano plot, GO‑plot en KEGG‑visualisaties.  
-- **/docs** – Inleiding, Methode, Resultaten en Conclusie.  
 - **/beheren** – Data stewardship en GitHub‑beheer (competentie Beheren).
-
+- **/data** – ruwe FASTQ, BAM, index en referentiegenoom (niet gecommit i.v.m. grootte).
+- **/docs** – Inleiding, Methode, Resultaten en Conclusie.
+- **/figures** – volcano plot, GO‑plot en KEGG‑visualisaties.      
+- **/results** – tabellen met DE‑genen, GO‑resultaten en KEGG‑uitvoer.  
+- **/scripts** – volledig R‑script voor mapping → DESeq2 → GO → KEGG.
 
 ---
 
