@@ -3,11 +3,11 @@
 # Inleiding
 
 Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wereldwijd voorkomt bij ongeveer 0,5–1% van de bevolking. De ziekte heeft een enorme impact op de kwaliteit van leven en het arbeidsvermogen van patiënten, aangezien het onbehandeld leidt tot onomkeerbare gewrichtsschade. RA wordt gekenmerkt door voortdurende ontsteking van het synoviale weefsel.
-Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019).
+Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019),(Xue et al., 2025).
 Binnen dit proces speelt de KEGG-pathway hsa05323 (Rheumatoid Arthritis) een sleutelrol; hierin is te zien hoe cytokines de productie van destructieve moleculen aansturen.
-Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL).
+Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL) (Pulik et al., 2023).
 Onderzoek heeft aangetoond dat de expressie van CTSL in synoviale fibroblasten sterk wordt gereguleerd door cytokines, wat direct bijdraagt aan de afbraak van de gewrichtsmatrix (Hummel et al., 2003).
-Daarnaast wordt gekeken naar het V-ATPase complex, een protonpomp die cruciaal is voor de verzuring van de extracellulaire ruimte door osteoclasten, wat noodzakelijk is voor botresorptie.
+Daarnaast wordt gekeken naar het V-ATPase complex, een protonpomp die cruciaal is voor de verzuring van de extracellulaire ruimte door osteoclasten, wat noodzakelijk is voor botresorptie, (Teitelbaum, 2011).
 Het doel van dit project is om middels een reproduceerbare RNA-seq workflow de genexpressie van vier RA-patiënten te vergelijken met vier gezonde controles
 Door specifiek in te zoomen op deze enzymen binnen de hsa05323‑pathway wordt geprobeerd de mechanismen achter gewrichtsdestructie bij RA verder te ontrafelen.
 
@@ -40,13 +40,21 @@ De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naa
 ![stroomschema](figures/stroomschema-workflow.png)
 
 **Figuur 1.** stroomschema - workflow
+Bron: gegenereerd met chatGPT (openAI, 2026)
+
+<details>
+<summary>Klik hier voor de gebruikte promt</summary>
+
+[Genereer een professioneel, overzichtelijk stroomschema (flowchart) in Mermaid.js-syntax of als beschrijving voor een bio-informatica workflow. Het schema moet de stappen laten zien van een RNA-seq analyse voor het project: 'Transcriptomics Analyse van Rheumatoïde Artritis'. Gebruik de volgende stappen en verbind ze logisch: Input: Ruwe paired-end reads (FASTQ-bestanden) van 4 RA-patiënten en 4 gezonde controles. Preprocessing & Mapping: Gebruik van Rsubread (buildindex en align) tegen het menselijk referentiegenoom GRCh38. Data Post-processing: Sorteren en indexeren van BAM-bestanden met Rsamtools. Quantificatie: Genereren van een gen-tellingenmatrix met featureCounts. Differentiële Expressie Analyse: Statistische analyse met DESeq2 (Contrast: RA vs. Normal). Functionele Interpretatie (twee parallelle paden): Pad A: Gene Ontology (GO) verrijking met goseq (correctie voor genlengte, hg38). Pad B: KEGG Pathway analyse met pathview voor de hsa05323-pathway. Specifieke Focus: Markeer in het schema dat er specifiek is ingezoomd op MMP1, MMP3, CTSL en V-ATPase binnen de pathway. Output: Visualisaties waaronder een Volcano plot, Top 10 GO-termen en ingekleurde KEGG-maps. Gebruik een strakke, hiërarchische structuur (van boven naar beneden) en gebruik verschillende kleuren of vormen voor software-packages en datatypen.]
+
+</details>
 
 De methodiek is als volgt onderverdeeld:
 Mapping & Quantificatie: De ruwe reads zijn gemapt met de package Rsubread (v2.24.0).
 Na het sorteren en indexeren van de BAM files met Rsamtools zijn de gen tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
 Differentiële Expressie Analyse: Met het package DESeq2 (v1.50.2) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
 GO-analyse: Met de package goseq (v1.62.0) is een Gene Ontology analyse uitgevoerd om verrijkte biologische processen te identificeren. Voor deze analyse is gebruikgemaakt van de genlengte informatie van de hg19 build als proxy voor de hg38 mappingdata. Dit is gedaan omdat de specifieke lengte database voor hg38 lokaal niet beschikbaar was. Gezien de minimale verschillen in genlengtes tussen deze versies, heeft dit geen significante invloed op de bias correctie, maar het is vermeld om de volledige reproduceerbaarheid te waarborgen.
-KEGG Pathway Analyse: Met de package pathview (v1.50.0) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). Hierbij lag de focus op de regulatie van matrix afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
+KEGG Pathway Analyse: Met de package pathview (v1.50.0) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis),(Kanehisa et al., 2023). Hierbij lag de focus op de regulatie van matrix afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
 
 ---
 
@@ -107,7 +115,7 @@ De plot laat duidelijk zien dat meerdere ontstekingsgerelateerde genen sterk opg
 
 **Figuur 3.** Top 10 verrijkte GO‑termen (Biological Process) op basis van goseq‑analyse. Puntgrootte geeft het aantal differentieel tot expressie komende genen per term weer; kleurintensiteit correspondeert met de −log10(p‑waarde).
 
-Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt, wat past bij de pathofysiologie van RA. Daarnaast worden enkele cellulaire componenten zoals nucleoplasm en organelle lumen verrijkt gevonden, wat past bij verhoogde transcriptie‑activiteit in RA‑synovium.
+Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Belangrijke processen zoals immune response, leukocyte activation en adaptive immune response zijn sterk verrijkt (Edalat et al., 2024), wat past bij de pathofysiologie van RA. Daarnaast worden enkele cellulaire componenten zoals nucleoplasm en organelle lumen verrijkt gevonden, wat past bij verhoogde transcriptie‑activiteit in RA‑synovium.
 
 ---
 
@@ -117,7 +125,7 @@ Deze figuur toont de tien meest verrijkte GO‑termen (Biological Process). Bela
 
 **Figuur 4.** KEGG‑pathway hsa05323 (Rheumatoid Arthritis) ingekleurd met log2‑fold changes uit DESeq2. Rood geeft opregulatie aan, groen neerregulatie. De pathway visualiseert activatie van ontstekingsroutes en processen betrokken bij kraakbeenafbraak en osteoclast‑activiteit.
 
-De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes, chemokines, T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming.
+De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes, chemokines, T‑celactivatie, B‑celactivatie en RANKL‑gemedieerde osteoclastvorming, (Tian et al., 2025).
 
 ---
 
@@ -155,7 +163,13 @@ Deze repository is zo ingericht dat een andere gebruiker de analyse kan klonen, 
 ---
 ## bronnen
 *   [1. Platzer et al. (2019) - Analyse van genexpressie en co-expressiepatronen in RA](https://pubmed.ncbi.nlm.nih.gov/31344123/)
-*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA-f](https://pubmed.ncbi.nlm.nih.gov/12509618/)
+*   [2. Hummel et al. (2003) - Regulatie van Cathepsine L (CTSL) in RA](https://pubmed.ncbi.nlm.nih.gov/12509618/)
+*   [3. Pulik et al. (2023) - MMP1 en MMP3 in RA](https://pubmed.ncbi.nlm.nih.gov/37522140/)
+*   [4. Edalat et al. (2024) - Single-cell atlas van synovium bij inflammatoire artritis](https://pubmed.ncbi.nlm.nih.gov/38832018/)
+*   [5. Xue et al. (2025) - Biomarkers en multi-omics in RA](https://pubmed.ncbi.nlm.nih.gov/40059035/)
+*   [6. Tian et al. (2025) - Macrofagen en synoviale inflammatie in RA](https://pubmed.ncbi.nlm.nih.gov/40123456/)
+*   [7. Kanehisa et al. (2023) - KEGG hsa05323 Rheumatoid arthritis pathway](https://pubmed.ncbi.nlm.nih.gov/36408417/)
+*   [8. Teitelbaum (2011) - V-ATPase en osteoclastactivatie](https://pubmed.ncbi.nlm.nih.gov/22172039/)
 
 ---
 
