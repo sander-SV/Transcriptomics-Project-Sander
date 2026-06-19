@@ -8,7 +8,7 @@ Binnen dit proces speelt de KEGG-pathway hsa05323 (Rheumatoid Arthritis) een sle
 Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL) (Pulik et al., 2023).
 Onderzoek heeft aangetoond dat de expressie van CTSL in synoviale fibroblasten sterk wordt gereguleerd door cytokines, wat direct bijdraagt aan de afbraak van de gewrichtsmatrix (Hummel et al., 2003).
 Daarnaast wordt gekeken naar het V-ATPase complex, een protonpomp die cruciaal is voor de verzuring van de extracellulaire ruimte door osteoclasten, wat noodzakelijk is voor botresorptie, (Teitelbaum, 2011).
-Het doel van dit project is om middels een reproduceerbare RNA-seq workflow de genexpressie van vier RA-patiënten te vergelijken met vier gezonde controles
+Het doel van dit project is om middels een reproduceerbare RNA-seq workflow de genexpressie van vier RA patiënten te vergelijken met vier gezonde controles
 Door specifiek in te zoomen op deze enzymen binnen de hsa05323‑pathway wordt geprobeerd de mechanismen achter gewrichtsdestructie bij RA verder te ontrafelen.
 
 ---
@@ -20,8 +20,8 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 
 ### **Deelvragen**
 1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen reuma patiënten en gezonde controles?
-2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA-samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
-3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex in de synoviale biopten van RA-patiënten?
+2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
+3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex in de synoviale biopten van RA patiënten?
 
 ---
 
@@ -46,14 +46,14 @@ Bron: gegenereerd met chatGPT (openAI, 2026)
 <details>
 <summary>Klik hier voor de gebruikte promt</summary>
 
-[Genereer een professioneel, overzichtelijk stroomschema (flowchart) in Mermaid.js-syntax of als beschrijving voor een bio-informatica workflow. Het schema moet de stappen laten zien van een RNA-seq analyse voor het project: 'Transcriptomics Analyse van Rheumatoïde Artritis'. Gebruik de volgende stappen en verbind ze logisch: Input: Ruwe paired-end reads (FASTQ-bestanden) van 4 RA-patiënten en 4 gezonde controles. Preprocessing & Mapping: Gebruik van Rsubread (buildindex en align) tegen het menselijk referentiegenoom GRCh38. Data Post-processing: Sorteren en indexeren van BAM-bestanden met Rsamtools. Quantificatie: Genereren van een gen-tellingenmatrix met featureCounts. Differentiële Expressie Analyse: Statistische analyse met DESeq2 (Contrast: RA vs. Normal). Functionele Interpretatie (twee parallelle paden): Pad A: Gene Ontology (GO) verrijking met goseq (correctie voor genlengte, hg38). Pad B: KEGG Pathway analyse met pathview voor de hsa05323-pathway. Specifieke Focus: Markeer in het schema dat er specifiek is ingezoomd op MMP1, MMP3, CTSL en V-ATPase binnen de pathway. Output: Visualisaties waaronder een Volcano plot, Top 10 GO-termen en ingekleurde KEGG-maps. Gebruik een strakke, hiërarchische structuur (van boven naar beneden) en gebruik verschillende kleuren of vormen voor software-packages en datatypen.]
+[Genereer een professioneel, overzichtelijk stroomschema (flowchart) in Mermaid.js-syntax of als beschrijving voor een bio-informatica workflow. Het schema moet de stappen laten zien van een RNA-seq analyse voor het project: 'Transcriptomics Analyse van Rheumatoïde Artritis'. Gebruik de volgende stappen en verbind ze logisch: Input: Ruwe paired-end reads (FASTQ-bestanden) van 4 RA patiënten en 4 gezonde controles. Preprocessing & Mapping: Gebruik van Rsubread (buildindex en align) tegen het menselijk referentiegenoom GRCh38. Data Post-processing: Sorteren en indexeren van BAM-bestanden met Rsamtools. Quantificatie: Genereren van een gen-tellingenmatrix met featureCounts. Differentiële Expressie Analyse: Statistische analyse met DESeq2 (Contrast: RA vs. Normal). Functionele Interpretatie (twee parallelle paden): Pad A: Gene Ontology (GO) verrijking met goseq (correctie voor genlengte, hg38). Pad B: KEGG Pathway analyse met pathview voor de hsa05323-pathway. Specifieke Focus: Markeer in het schema dat er specifiek is ingezoomd op MMP1, MMP3, CTSL en V-ATPase binnen de pathway. Output: Visualisaties waaronder een Volcano plot, Top 10 GO-termen en ingekleurde KEGG-maps. Gebruik een strakke, hiërarchische structuur (van boven naar beneden) en gebruik verschillende kleuren of vormen voor software-packages en datatypen.]
 
 </details>
 
 De methodiek is als volgt onderverdeeld:
 Mapping & Quantificatie: De ruwe reads zijn gemapt met de package Rsubread (v2.24.0).
 Na het sorteren en indexeren van de BAM files met Rsamtools zijn de gen tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
-Differentiële Expressie Analyse: Met het package DESeq2 (v1.50.2) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
+Differentiële Expressie Analyse: Met het package DESeq2 (v1.50.2) is de statistische vergelijking uitgevoerd tussen de RA groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
 GO-analyse: Met de package goseq (v1.62.0) is een Gene Ontology analyse uitgevoerd om verrijkte biologische processen te identificeren. Voor deze analyse is gebruikgemaakt van de genlengte informatie van de hg19 build als proxy voor de hg38 mappingdata. Dit is gedaan omdat de specifieke lengte database voor hg38 lokaal niet beschikbaar was. Gezien de minimale verschillen in genlengtes tussen deze versies, heeft dit geen significante invloed op de bias correctie, maar het is vermeld om de volledige reproduceerbaarheid te waarborgen.
 KEGG Pathway Analyse: Met de package pathview (v1.50.0) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis),(Kanehisa et al., 2023). Hierbij lag de focus op de regulatie van matrix afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
 
