@@ -2,7 +2,7 @@ GitHub is gebruikt als centraal platform voor versiebeheer, documentatie en orga
 
 
 
-Tijdens het project zijn alle wijzigingen doorgevoerd via GitHub Desktop. Elke update — zoals het toevoegen van nieuwe figuren, het aanpassen van scripts of het schrijven van documentatie — is gecommit met een korte maar duidelijke beschrijving. Dit maakt het mogelijk om de volledige geschiedenis van het project te volgen en indien nodig terug te keren naar eerdere versies.
+Tijdens het project zijn alle wijzigingen doorgevoerd via GitHub Desktop. Elke update zoals het toevoegen van nieuwe figuren, het aanpassen van scripts of het schrijven van documentatie is gecommit met een korte maar duidelijke beschrijving. Dit maakt het mogelijk om de volledige geschiedenis van het project te volgen en indien nodig terug te keren naar eerdere versies.
 
 
 
