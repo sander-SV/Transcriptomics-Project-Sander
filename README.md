@@ -2,7 +2,7 @@
 
 # Inleiding
 
-Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wordt gekenmerkt door voortdurende ontsteking van het synoviale weefsel, wat onbehandeld leidt tot onomkeerbare kraakbeen en botschade.
+Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wereldwijd voorkomt bij ongeveer 0,5–1% van de bevolking. De ziekte heeft een enorme impact op de kwaliteit van leven en het arbeidsvermogen van patiënten, aangezien het onbehandeld leidt tot onomkeerbare gewrichtsschade. RA wordt gekenmerkt door voortdurende ontsteking van het synoviale weefsel.
 Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019).
 Binnen dit proces speelt de KEGG-pathway hsa05323 (Rheumatoid Arthritis) een sleutelrol; hierin is te zien hoe cytokines de productie van destructieve moleculen aansturen.
 Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL).
