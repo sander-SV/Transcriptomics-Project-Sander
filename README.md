@@ -40,6 +40,7 @@ De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naa
 ![stroomschema](figures/stroomschema-workflow.png)
 
 **Figuur 1.** stroomschema - workflow
+
 Bron: gegenereerd met chatGPT (openAI, 2026)
 
 <details>
