@@ -2,8 +2,8 @@
 
 # Inleiding
 
-Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wordt gekenmerkt door persisterende ontsteking van het synoviale weefsel, wat onbehandeld leidt tot onomkeerbare kraakbeen en botschade.
-Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics-studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019).
+Rheumatoïde artritis (RA) is een chronische auto-immuunziekte die wordt gekenmerkt door voortdurende ontsteking van het synoviale weefsel, wat onbehandeld leidt tot onomkeerbare kraakbeen en botschade.
+Hoewel de precieze oorzaak onbekend is, laten grootschalige transcriptomics studies zien dat specifieke genexpressieprofielen en co-expressiepatronen in het synovium essentieel zijn voor het begrijpen van de pathofysiologie (Platzer et al., 2019).
 Binnen dit proces speelt de KEGG-pathway hsa05323 (Rheumatoid Arthritis) een sleutelrol; hierin is te zien hoe cytokines de productie van destructieve moleculen aansturen.
 Dit onderzoek richt zich specifiek op de moleculaire "uitvoerders" van gewrichtsschade binnen deze pathway: de matrix-afbrekende enzymen MMP1, MMP3 en Cathepsine L (CTSL).
 Onderzoek heeft aangetoond dat de expressie van CTSL in synoviale fibroblasten sterk wordt gereguleerd door cytokines, wat direct bijdraagt aan de afbraak van de gewrichtsmatrix (Hummel et al., 2003).
@@ -19,9 +19,9 @@ Door specifiek in te zoomen op deze enzymen binnen de hsa05323‑pathway wordt g
 Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase complex binnen de hsa05323-pathway bij de gewrichtsschade in patiënten met reumatoïde artritis?
 
 ### **Deelvragen**
-1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen RA-patiënten en gezonde controles?
+1. Differentiële Expressie: Welke genen in de totale dataset vertonen de meest significante verschillen in expressie tussen reuma patiënten en gezonde controles?
 2. Pathway Activatie: In welke mate is de KEGG-pathway hsa05323 geactiveerd in de RA-samples en welke sub-processen (zoals osteoclast-activiteit of kraakbeenafbraak) vallen hierbij op?
-3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex (ATP6V-genen) in de synoviale biopten van RA-patiënten?
+3. Specifieke Focus: Is er een statistisch significante opregulatie van de genen MMP1, MMP3, CTSL en de sub-units van het V-ATPase complex in de synoviale biopten van RA-patiënten?
 
 ---
 
@@ -42,11 +42,11 @@ De onderstaande workflow (Figuur 1) visualiseert de stappen van de ruwe data naa
 **Figuur 1.** stroomschema - workflow
 
 De methodiek is als volgt onderverdeeld:
-Mapping & Quantificatie: De ruwe reads zijn gemapt met het package Rsubread (v2.24.0).
-Na het sorteren en indexeren van de BAM-bestanden met Rsamtools zijn de gen-tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
+Mapping & Quantificatie: De ruwe reads zijn gemapt met de package Rsubread (v2.24.0).
+Na het sorteren en indexeren van de BAM files met Rsamtools zijn de gen tellingen gegenereerd met de functie featureCounts, wat resulteerde in een tellingenmatrix.
 Differentiële Expressie Analyse: Met het package DESeq2 (v1.50.2) is de statistische vergelijking uitgevoerd tussen de RA-groep en de gezonde controles. Er is een contrast ingesteld om specifiek de expressieverschillen (log2-fold changes) en gecorrigeerde p-waarden te bepalen.
-GO-analyse: Met het package goseq (v1.62.0) is een Gene Ontology analyse uitgevoerd om verrijkte biologische processen te identificeren. Voor deze analyse is gebruikgemaakt van de genlengte-informatie van de hg19 build als proxy voor de hg38 mapping-data. Dit is gedaan omdat de specifieke lengte-database voor hg38 lokaal niet beschikbaar was. Gezien de minimale verschillen in genlengtes tussen deze versies, heeft dit geen significante invloed op de bias-correctie, maar het is vermeld om de volledige reproduceerbaarheid te waarborgen.
-KEGG Pathway Analyse: Met het package pathview (v1.50.0) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). Hierbij lag de focus op de regulatie van matrix-afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
+GO-analyse: Met de package goseq (v1.62.0) is een Gene Ontology analyse uitgevoerd om verrijkte biologische processen te identificeren. Voor deze analyse is gebruikgemaakt van de genlengte informatie van de hg19 build als proxy voor de hg38 mappingdata. Dit is gedaan omdat de specifieke lengte database voor hg38 lokaal niet beschikbaar was. Gezien de minimale verschillen in genlengtes tussen deze versies, heeft dit geen significante invloed op de bias correctie, maar het is vermeld om de volledige reproduceerbaarheid te waarborgen.
+KEGG Pathway Analyse: Met de package pathview (v1.50.0) is specifiek ingezoomd op de pathway hsa05323 (Rheumatoid Arthritis). Hierbij lag de focus op de regulatie van matrix afbrekende enzymen (MMP1, MMP3, CTSL) en de betrokkenheid van het V-ATPase complex bij botafbraak.
 
 ---
 
@@ -76,6 +76,16 @@ Deze analyse is volledig reproduceerbaar door:
    SRR4785819, SRR4785820, SRR4785828, SRR4785831,
    SRR4785979, SRR4785980, SRR4785986, SRR4785988.
 
+3. Configuratie van de werkomgeving
+Open het R-script in de map /scripts en pas in Sectie 1 de setwd() aan naar de locatie op je computer waar je de repository hebt gecloned en de data hebt opgeslagen.
+
+4. Uitvoeren van de analyse
+Run het script(scripts/Volledige script transcriptomics.R).
+Het script voert automatisch de volgende stappen uit(wel line voor line uitvoeren):
+Installatie en laden van de benodigde Bioconductor packages.
+Mapping van de raw reads tegen het GRCh38 referentiegenoom.
+Differentiële genexpressie-analyse met DESeq2.
+Functionele verrijking (GO en KEGG) voor biologische interpretatie.
 
 ---
 
@@ -113,7 +123,7 @@ De pathway laat activatie zien van o.a. TNF‑signaling, IL‑1/IL‑6‑routes,
 
 ## Conclusie
 
-Deze RNA‑seq analyse laat duidelijke verschillen zien tussen synoviaal weefsel van RA‑patiënten en gezonde controles. De differentiële expressieanalyse toont sterke opregulatie van ontstekingsgerelateerde genen, waaronder cytokines, chemokines en immuunreceptoren. Dit bevestigt dat RA‑synovium zich in een toestand van chronische immuunactivatie bevindt.
+Deze RNA‑seq analyse laat duidelijke verschillen zien tussen synoviaal weefsel van reuma patiënten en gezonde controles. De differentiële expressieanalyse toont sterke opregulatie van ontstekingsgerelateerde genen, waaronder cytokines, chemokines en immuunreceptoren. Dit bevestigt dat RA‑synovium zich in een toestand van chronische immuunactivatie bevindt.
 
 De GO‑analyse ondersteunt dit beeld: processen zoals adaptive immune response, leukocyte activation en cytokine-mediated signaling zijn significant verrijkt. Daarnaast wijzen verrijkte nucleaire componenten op verhoogde transcriptie‑activiteit in ontstoken synovium.
 
