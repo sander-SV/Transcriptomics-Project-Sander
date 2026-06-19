@@ -28,9 +28,10 @@ Welke rol spelen matrix-afbrekende enzymen (MMP1/3, CTSL) en het V-ATPase comple
 ## Data en methode
 
 ### Data
-De dataset voor dit onderzoek bestaat uit acht monsters verkregen via synoviumbiopten (weefsel uit het gewrichtsslijmvlies): vier monsters van patiënten met reumatoïde artritis (RA) en vier monsters van gezonde controles. 
+De dataset voor dit onderzoek bestaat uit acht monsters verkregen via synoviumbiopten (weefsel uit het gewrichtsslijmvlies): vier monsters van patiënten met reumatoïde artritis (RA) en vier monsters van gezonde controles.
 De analyse is uitgevoerd op publiek beschikbare paired-end RNA-sequencing data.
-Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapiens GRCh38 (versie GCF_000001405.40), met een bijbehorend GTF-bestand voor de nauwkeurige annotatie van genen. (benoem het artikel waar het weg komt en ook hoe ze het hebben verkregen iluminei)
+Deze data is oorspronkelijk gegenereerd met behulp van het Illumina HiSeq-platform om een hoge resolutie van het transcriptoom te verkrijgen (Platzer et al., 2019).
+Voor de mapping is gebruikgemaakt van het menselijk referentiegenoom Homo sapiens GRCh38 (versie GCF_000001405.40), met een bijbehorend GTF-bestand voor de nauwkeurige annotatie van genen.
 
 ### Bioinformatica workflow
 
